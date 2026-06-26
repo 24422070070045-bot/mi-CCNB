@@ -32,8 +32,8 @@ comentario = st.text_area("Comentario adicional:")
 
 if st.button("Enviar Calificación"):
 if nombre_calif:
-guardar_datos("CALIFICACIÓN", nombre_calif, f"{'⭐' * estrellas} - {comentario}")
-st.success("¡Gracias por tu calificación!")
+    guardar_datos("CALIFICACIÓN", nombre_calif, f"{'⭐' * estrellas} - {comentario}")
+    st.success("¡Gracias por tu calificación!")
 else:
 st.error("Por favor, pon tu nombre.")
 
@@ -42,8 +42,8 @@ sugerencia = st.text_area("Escribe tu sugerencia:")
 
 if st.button("Enviar Sugerencia"):
 if sugerencia:
-guardar_datos("SUGERENCIA", "Anónimo", sugerencia)
-st.success("¡Gracias por ayudarnos a mejorar!")
+    guardar_datos("SUGERENCIA", "Anónimo", sugerencia)
+    st.success("¡Gracias por ayudarnos a mejorar!")
 else:
 st.error("El campo de sugerencia no puede estar vacío.")
 
@@ -54,15 +54,15 @@ contrasena = st.text_input("Introduce la contraseña para ver los datos:", type=
 
 # Puedes cambiar "1234" por la contraseña que tú quieras
 if contrasena == "1234":
-st.subheader("📋 Lista de Pedidos y Mensajes Recibidos:")
+    st.subheader("📋 Lista de Pedidos y Mensajes Recibidos:")
 
 if os.path.exists(ARCHIVO_DATOS):
 with open(ARCHIVO_DATOS, "r", encoding="utf-8") as f:
-lineas = f.readlines()
+    lineas = f.readlines()
 
 if lineas:
-for linea in reversed(lineas): # Muestra los más nuevos primero
-st.text(linea.strip())
+    for linea in reversed(lineas): # Muestra los más nuevos primero
+        st.text(linea.strip())
 else:
 st.info("Aún no hay mensajes registrados.")
 else:
