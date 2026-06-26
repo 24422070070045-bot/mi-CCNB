@@ -6,8 +6,8 @@ ARCHIVO_DATOS = "registro_pedidos.txt"
 
 # Función para guardar los datos en el archivo
 def guardar_datos(tipo, nombre, contenido):
-with open(ARCHIVO_DATOS, "a", encoding="utf-8") as f:
-f.write(f"[{tipo}] | Nombre: {nombre} | Detalle: {contenido}\n")
+    with open(ARCHIVO_DATOS, "a", encoding="utf-8") as f:
+        f.write(f"[{tipo}] | Nombre: {nombre} | Detalle: {contenido}\n")
 
 st.title("Reservar Mesa o Pedido")
 
