@@ -19,9 +19,9 @@ if opcion == "📅 Apartados":
     detalles = st.text_area("¿Qué deseas apartar?")
 
 if st.button("Enviar Apartado"):
-if nombre and detalles:
-    guardar_datos("APARTADO", nombre, detalles)
-    st.success(f"¡Gracias {nombre}! Apartado registrado en la app con éxito.")
+    if nombre and detalles:
+        guardar_datos("APARTADO", nombre, detalles)
+        st.success(f"¡Gracias {nombre}! Apartado registrado en la app con éxito.")
 else:
     st.error("Por favor, llena todos los campos.")
 
