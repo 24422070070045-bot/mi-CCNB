@@ -25,7 +25,7 @@ if st.button("Enviar Apartado"):
 else:
     st.error("Por favor, llena todos los campos.")
 
-elif opcion == "⭐ Calificar":
+elif opcion == "⭐" Calificar":
     nombre_calif = st.text_input("Tu Nombre:")
     estrellas = st.slider("Calificación:", 1, 5, 5)
     comentario = st.text_area("Comentario adicional:")
