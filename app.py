@@ -1,28 +1,72 @@
 import streamlit as st
+import os
 
-st.set_page_config(page_title="Café Central", page_icon="☕")
+# Nombre del archivo interno donde se guardará todo
+ARCHIVO_DATOS = "registro_pedidos.txt"
 
-st.markdown("<h1 style='text-align: center; color: #6f4e37;'>☕ Café Central</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #8d6e63;'>¡Bienvenidos! Elige una opción.</p>", unsafe_allow_html=True)
+# Función para guardar los datos en el archivo
+def guardar_datos(tipo, nombre, contenido):
+with open(ARCHIVO_DATOS, "a", encoding="utf-8") as f:
+f.write(f"[{tipo}] | Nombre: {nombre} | Detalle: {contenido}\n")
 
-opcion = st.radio("Menú de opciones:", ["🗓️ Apartados", "⭐ Calificar", "📋 Sugerencias"])
+st.title("Reservar Mesa o Pedido")
 
-if opcion == "🗓️ Apartados":
-    st.subheader("Reservar Mesa o Pedido")
+# Menú para los clientes
+opcion = st.radio("Menú de opciones:", ["📅 Apartados", "⭐ Calificar", "📋 Sugerencias"])
+
+if opcion == "📅 Apartados":
     nombre = st.text_input("Tu Nombre:")
     detalles = st.text_area("¿Qué deseas apartar?")
+
 if st.button("Enviar Apartado"):
-    st.success(f"¡Gracias {nombre}! Apartado registrado.")
+if nombre and detalles:
+    guardar_datos("APARTADO", nombre, detalles)
+    st.success(f"¡Gracias {nombre}! Apartado registrado en la app con éxito.")
+else:
+    st.error("Por favor, llena todos los campos.")
 
 elif opcion == "⭐ Calificar":
-    st.subheader("Califica nuestra atención")
-    estrellas = st.slider("Estrellas", 1, 5, 5)
+nombre_calif = st.text_input("Tu Nombre:")
+estrellas = st.slider("Calificación:", 1, 5, 5)
+comentario = st.text_area("Comentario adicional:")
+
 if st.button("Enviar Calificación"):
-    st.success("¡Gracias por calificar!")
+if nombre_calif:
+guardar_datos("CALIFICACIÓN", nombre_calif, f"{'⭐' * estrellas} - {comentario}")
+st.success("¡Gracias por tu calificación!")
+else:
+st.error("Por favor, pon tu nombre.")
 
 elif opcion == "📋 Sugerencias":
-    st.subheader("¿Qué te gustaría en el Menú?")
-    antojo = st.text_area("Escribe aquí:")
+sugerencia = st.text_area("Escribe tu sugerencia:")
+
 if st.button("Enviar Sugerencia"):
-    st.success("¡Idea recibida!")
+if sugerencia:
+guardar_datos("SUGERENCIA", "Anónimo", sugerencia)
+st.success("¡Gracias por ayudarnos a mejorar!")
+else:
+st.error("El campo de sugerencia no puede estar vacío.")
+
+# --- SECCIÓN SECRETA SOLO PARA TI ---
+st.markdown("---")
+with st.expander("🔑 Modo Administrador (Ver pedidos guardados)"):
+contrasena = st.text_input("Introduce la contraseña para ver los datos:", type="password")
+
+# Puedes cambiar "1234" por la contraseña que tú quieras
+if contrasena == "1234":
+st.subheader("📋 Lista de Pedidos y Mensajes Recibidos:")
+
+if os.path.exists(ARCHIVO_DATOS):
+with open(ARCHIVO_DATOS, "r", encoding="utf-8") as f:
+lineas = f.readlines()
+
+if lineas:
+for linea in reversed(lineas): # Muestra los más nuevos primero
+st.text(linea.strip())
+else:
+st.info("Aún no hay mensajes registrados.")
+else:
+st.info("Aún no hay mensajes registrados.")
+elif contrasena != "":
+st.error("Contraseña incorrecta")
 
