@@ -26,9 +26,9 @@ else:
     st.error("Por favor, llena todos los campos.")
 
 elif opcion == "⭐ Calificar":
-nombre_calif = st.text_input("Tu Nombre:")
-estrellas = st.slider("Calificación:", 1, 5, 5)
-comentario = st.text_area("Comentario adicional:")
+    nombre_calif = st.text_input("Tu Nombre:")
+    estrellas = st.slider("Calificación:", 1, 5, 5)
+    comentario = st.text_area("Comentario adicional:")
 
 if st.button("Enviar Calificación"):
 if nombre_calif:
